@@ -9,3 +9,7 @@ Current stage:
 - no database models
 - no application features yet
 
+Versioning:
+
+- every change is tracked in Git
+- stable milestones can be tagged in Git later

@@ -8,6 +8,9 @@ __pycache__/
 *.log
 *.sqlite3
 *.db
+tincapos_github_ed25519
+tincapos_github_ed25519.pub
+tools/
 frontend/node_modules/
 frontend/.next/
 backend/.venv/
@@ -22,4 +25,3 @@ tests/*
 !tests/.gitkeep
 scripts/*
 !scripts/.gitkeep
-

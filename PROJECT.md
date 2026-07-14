@@ -29,4 +29,5 @@ TinCapOS is being prepared as a clean foundation for future product development.
 - make changes through Git-tracked files only
 - keep the foundation clean and minimal
 - document architectural decisions in `docs/` when needed
-
+- save every meaningful change as a Git commit
+- use Git tags for stable milestones and release snapshots
