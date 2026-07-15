@@ -67,10 +67,28 @@ export function CheckCircle2(props: IconProps) {
   );
 }
 
+export function Bookmark(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18l-6-4-6 4z" />
+    </Icon>
+  );
+}
+
 export function ChevronDown(props: IconProps) {
   return (
     <Icon {...props}>
       <path d="m6 9 6 6 6-6" />
+    </Icon>
+  );
+}
+
+export function Download(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M12 3v12" />
+      <path d="m7 10 5 5 5-5" />
+      <path d="M5 21h14" />
     </Icon>
   );
 }
@@ -134,6 +152,35 @@ export function MoreHorizontal(props: IconProps) {
   );
 }
 
+export function MoreVertical(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M12 6h.01" />
+      <path d="M12 12h.01" />
+      <path d="M12 18h.01" />
+    </Icon>
+  );
+}
+
+export function Lock(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <rect x="5" y="10" width="14" height="10" rx="2" />
+      <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+    </Icon>
+  );
+}
+
+export function Info(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 10v6" />
+      <path d="M12 7h.01" />
+    </Icon>
+  );
+}
+
 export function Plus(props: IconProps) {
   return (
     <Icon {...props}>
@@ -143,11 +190,35 @@ export function Plus(props: IconProps) {
   );
 }
 
+export function RefreshCw(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M20 6v5h-5" />
+      <path d="M4 18v-5h5" />
+      <path d="M19 11a7 7 0 0 0-12-4l-3 3" />
+      <path d="M5 13a7 7 0 0 0 12 4l3-3" />
+    </Icon>
+  );
+}
+
 export function Search(props: IconProps) {
   return (
     <Icon {...props}>
       <circle cx="11" cy="11" r="6.5" />
       <path d="m16 16 4 4" />
+    </Icon>
+  );
+}
+
+export function SlidersHorizontal(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M4 7h7" />
+      <path d="M15 7h5" />
+      <circle cx="13" cy="7" r="2" />
+      <path d="M4 17h5" />
+      <path d="M13 17h7" />
+      <circle cx="11" cy="17" r="2" />
     </Icon>
   );
 }
@@ -164,6 +235,14 @@ export function Settings(props: IconProps) {
       <path d="M20 12h2" />
       <path d="m4.9 19.1 1.4-1.4" />
       <path d="m17.7 6.3 1.4-1.4" />
+    </Icon>
+  );
+}
+
+export function Star(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.8 1-6.1-4.4-4.3 6.1-.9z" />
     </Icon>
   );
 }
