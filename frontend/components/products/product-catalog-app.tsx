@@ -2,17 +2,17 @@
 
 import * as React from "react";
 
-import { Bell, Bookmark, ChevronDown, Download, Info, Lock, MoreVertical, Plus, RefreshCw, Search, SlidersHorizontal, Star } from "@/components/icons";
+import { Bell, Bookmark, ChevronDown, Info, Lock, Plus, Search, SlidersHorizontal } from "@/components/icons";
 import { OfferWizard } from "@/components/products/offer-wizard";
 import { ProductImage } from "@/components/products/product-image";
 import { SalesSidebar } from "@/components/sales/sidebar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { productCatalogData } from "@/mock/product-catalog";
-import { getOptionCompatibility, normalizeConfiguration } from "@/lib/product-compatibility";
+import { getOptionCompatibility, normalizeConfiguration, shouldRenderAsButtons } from "@/lib/product-compatibility";
 import type { ProductAttribute, ProductBase } from "@/lib/product-types";
 import { cn } from "@/lib/utils";
+import { productCatalogData } from "@/mock/product-catalog";
 
 const data = productCatalogData;
 
@@ -20,16 +20,14 @@ function getCategoryName(product: ProductBase) {
   return data.categories.find((category) => category.id === product.categoryId)?.name ?? "Без категории";
 }
 
-function getOptionLabel(attribute: ProductAttribute, optionId: string) {
-  return attribute.options.find((option) => option.id === optionId)?.label ?? optionId;
+function getProductAttributes(product: ProductBase) {
+  return product.attributeIds
+    .map((attributeId) => data.attributes.find((attribute) => attribute.id === attributeId))
+    .filter((attribute): attribute is ProductAttribute => Boolean(attribute && attribute.active));
 }
 
-function getAttributeLabel(attributeId: string, values: Record<string, string>) {
-  const attribute = data.attributes.find((item) => item.id === attributeId);
-  if (!attribute) {
-    return values[attributeId] ?? "Не выбрано";
-  }
-  return getOptionLabel(attribute, values[attributeId]);
+function getOptionLabel(attribute: ProductAttribute, optionId: string) {
+  return attribute.options.find((option) => option.id === optionId)?.label ?? optionId;
 }
 
 export function ProductCatalogApp() {
@@ -42,6 +40,8 @@ export function ProductCatalogApp() {
     return data.products.find((product) => product.id === selectedProductId) ?? data.products[0];
   }, [selectedProductId]);
 
+  const productAttributes = React.useMemo(() => getProductAttributes(selectedProduct), [selectedProduct]);
+
   const filteredProducts = React.useMemo(() => {
     const normalizedQuery = query.toLowerCase();
     return data.products.filter((product) => {
@@ -50,10 +50,13 @@ export function ProductCatalogApp() {
   }, [query]);
 
   const categoryCounts = React.useMemo(() => {
-    return data.categories.map((category) => ({
-      ...category,
-      count: data.products.filter((product) => product.categoryId === category.id).length
-    }));
+    return data.categories
+      .filter((category) => category.active)
+      .sort((left, right) => left.order - right.order)
+      .map((category) => ({
+        ...category,
+        count: data.products.filter((product) => product.categoryId === category.id).length
+      }));
   }, []);
 
   function selectProduct(product: ProductBase) {
@@ -63,23 +66,23 @@ export function ProductCatalogApp() {
 
   function updateConfiguration(attributeId: string, optionId: string) {
     const nextValues = normalizeConfiguration(
-      data.restrictions,
-      { ...configuration, [attributeId]: optionId },
-      { ...selectedProduct.defaultConfiguration, innerCoating: "gold-lacquer" }
+      data.rules,
+      productAttributes,
+      { ...configuration, [attributeId]: optionId }
     );
     setConfiguration(nextValues);
   }
 
   return (
     <div className="flex min-h-screen bg-slate-50 text-slate-950">
-      <SalesSidebar activeSection="products" />
+      <SalesSidebar activeSection="productsCatalog" role="Administrator" />
 
       <main className="flex min-h-screen flex-1 flex-col">
         <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur">
           <div className="flex items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
             <div>
-              <h1 className="text-2xl font-semibold tracking-normal text-slate-950">Каталог товаров</h1>
-              <p className="mt-1 text-sm text-slate-500">Конфигуратор продукции</p>
+              <h1 className="text-2xl font-semibold tracking-normal text-slate-950">Каталог продукции</h1>
+              <p className="mt-1 text-sm text-slate-500">Режим менеджера · конфигуратор продукции</p>
             </div>
 
             <div className="hidden flex-1 justify-center px-6 xl:flex">
@@ -88,7 +91,7 @@ export function ProductCatalogApp() {
                 <input
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Поиск по товарам, характеристикам..."
+                  placeholder="Поиск по товарам и характеристикам..."
                   className="w-full bg-transparent text-sm outline-none placeholder:text-slate-400"
                 />
               </div>
@@ -110,7 +113,7 @@ export function ProductCatalogApp() {
           </div>
         </header>
 
-        <div className="grid flex-1 gap-4 p-4 sm:p-6 lg:grid-cols-[320px_minmax(0,1fr)_360px] lg:p-6">
+        <div className="grid flex-1 gap-4 p-4 sm:p-6 lg:grid-cols-[310px_minmax(0,1fr)_340px]">
           <aside className="space-y-4">
             <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
               <h2 className="text-sm font-semibold text-slate-950">Категории</h2>
@@ -138,7 +141,7 @@ export function ProductCatalogApp() {
             </section>
 
             <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-              <h2 className="text-sm font-semibold text-slate-950">Популярные товары</h2>
+              <h2 className="text-sm font-semibold text-slate-950">Товары</h2>
               <Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Поиск товара..." className="mt-4" />
               <div className="mt-3 space-y-2">
                 {filteredProducts.map((product) => {
@@ -162,7 +165,6 @@ export function ProductCatalogApp() {
                   );
                 })}
               </div>
-              <Button variant="subtle" className="mt-4 w-full">Показать все товары</Button>
             </section>
           </aside>
 
@@ -173,39 +175,27 @@ export function ProductCatalogApp() {
                 <div>
                   <div className="flex flex-wrap items-center gap-3">
                     <h2 className="text-xl font-semibold tracking-normal text-slate-950">{selectedProduct.name}</h2>
-                    <Badge variant="emerald">Активен</Badge>
+                    <Badge variant={selectedProduct.status === "active" ? "emerald" : "amber"}>
+                      {selectedProduct.status === "active" ? "Активен" : "Черновик"}
+                    </Badge>
                   </div>
                   <div className="mt-2 text-sm text-slate-500">Артикул: {selectedProduct.article}</div>
                   <div className="mt-2 text-sm text-slate-500">Категория: {getCategoryName(selectedProduct)}</div>
                 </div>
               </div>
-              <div className="flex gap-2">
-                <Button variant="outline" className="gap-2">
-                  <Star className="h-4 w-4" />
-                  В избранное
-                </Button>
-                <Button variant="outline" className="gap-2">
-                  <Download className="h-4 w-4" />
-                  Экспорт
-                </Button>
-              </div>
+              <Button variant="outline" className="gap-2">
+                <Bookmark className="h-4 w-4" />
+                Сохранить шаблон
+              </Button>
             </div>
 
             <div className="p-5">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-base font-semibold text-slate-950">Конфигуратор товара</h3>
-                  <p className="mt-1 text-sm text-slate-500">Выберите характеристики товара. Недоступные варианты отображаются серым.</p>
-                </div>
-                <Button variant="ghost" className="gap-2" onClick={() => setConfiguration(selectedProduct.defaultConfiguration)}>
-                  <RefreshCw className="h-4 w-4" />
-                  Сбросить все
-                </Button>
-              </div>
+              <h3 className="text-base font-semibold text-slate-950">Конфигуратор товара</h3>
+              <p className="mt-1 text-sm text-slate-500">Карточка строится автоматически из характеристик базового товара.</p>
 
               <div className="mt-5 divide-y divide-slate-200">
-                {data.attributes.map((attribute) => (
-                  <div key={attribute.id} className="grid gap-3 py-4 md:grid-cols-[240px_minmax(0,1fr)]">
+                {productAttributes.map((attribute) => (
+                  <div key={attribute.id} className="grid gap-3 py-4 md:grid-cols-[220px_minmax(0,1fr)]">
                     <div className="flex items-center gap-3 text-sm font-medium text-slate-800">
                       <span className="grid h-8 w-8 place-items-center rounded-lg bg-slate-50 text-slate-500">
                         <Info className="h-4 w-4" />
@@ -213,10 +203,17 @@ export function ProductCatalogApp() {
                       {attribute.label}
                     </div>
 
-                    {attribute.display === "chips" ? (
+                    {attribute.type === "Text" || attribute.type === "Number" ? (
+                      <Input
+                        type={attribute.type === "Number" ? "number" : "text"}
+                        value={configuration[attribute.id] ?? ""}
+                        onChange={(event) => updateConfiguration(attribute.id, event.target.value)}
+                        className="max-w-sm"
+                      />
+                    ) : shouldRenderAsButtons(attribute) ? (
                       <div className="flex flex-wrap gap-2">
                         {attribute.options.map((option) => {
-                          const compatibility = getOptionCompatibility(data.restrictions, configuration, attribute.id, option.id);
+                          const compatibility = getOptionCompatibility(data.rules, configuration, attribute.id, option.id);
                           const selected = configuration[attribute.id] === option.id;
                           return (
                             <button
@@ -231,7 +228,7 @@ export function ProductCatalogApp() {
                                 !compatibility.available ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400 opacity-70 hover:bg-slate-100" : ""
                               )}
                             >
-                              {option.label}
+                              {compatibility.available ? "●" : "●"} {option.label}
                               {!compatibility.available ? <Lock className="h-3.5 w-3.5" /> : null}
                             </button>
                           );
@@ -256,14 +253,6 @@ export function ProductCatalogApp() {
                   </div>
                 ))}
               </div>
-
-              <div className="mt-4 flex items-start gap-3 rounded-xl bg-blue-50 px-4 py-4 text-sm text-blue-900">
-                <Info className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
-                <div>
-                  <div className="font-semibold">Сформированная конфигурация доступна для заказа.</div>
-                  <div className="mt-1 text-blue-800">Минимальный тираж: от 5 000 шт.</div>
-                </div>
-              </div>
             </div>
           </section>
 
@@ -277,50 +266,21 @@ export function ProductCatalogApp() {
                   <ProductImage product={selectedProduct} size="lg" />
                 </div>
                 <div className="space-y-3">
-                  {data.attributes.map((attribute) => (
+                  {productAttributes.map((attribute) => (
                     <div key={attribute.id} className="flex items-center justify-between gap-4 text-sm">
                       <span className="text-slate-500">{attribute.label}</span>
-                      <span className="text-right font-semibold text-slate-950">{getAttributeLabel(attribute.id, configuration)}</span>
+                      <span className="text-right font-semibold text-slate-950">{getOptionLabel(attribute, configuration[attribute.id])}</span>
                     </div>
                   ))}
                 </div>
                 <Button variant="outline" className="w-full gap-2">
                   <Bookmark className="h-4 w-4" />
-                  Сохранить конфигурацию
+                  Сохранить
                 </Button>
                 <Button className="w-full gap-2" onClick={() => setWizardOpen(true)}>
-                  Создать предложение с этим товаром
-                  <ChevronDown className="h-4 w-4 -rotate-90" />
+                  <Plus className="h-4 w-4" />
+                  Создать предложение
                 </Button>
-              </div>
-            </section>
-
-            <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-              <h2 className="text-sm font-semibold text-slate-950">Сохраненные конфигурации ({data.savedConfigurations.length})</h2>
-              <div className="mt-4 space-y-2">
-                {data.savedConfigurations.map((item) => (
-                  <div key={item.id} className="flex items-center justify-between gap-3 rounded-lg border border-slate-200 px-3 py-3">
-                    <div>
-                      <div className="text-sm font-semibold text-slate-950">{item.title}</div>
-                      <div className="mt-1 text-xs text-slate-500">{item.createdAt}</div>
-                    </div>
-                    <button type="button" className="grid h-8 w-8 place-items-center rounded-lg text-slate-500 hover:bg-slate-50">
-                      <MoreVertical className="h-4 w-4" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-              <h2 className="text-sm font-semibold text-slate-950">Документация</h2>
-              <div className="mt-4 space-y-2">
-                {data.documents.map((document) => (
-                  <button key={document.id} type="button" className="flex w-full items-center justify-between rounded-lg border border-slate-200 px-3 py-3 text-left text-sm font-medium text-slate-800 hover:bg-slate-50">
-                    {document.label}
-                    <Download className="h-4 w-4 text-slate-400" />
-                  </button>
-                ))}
               </div>
             </section>
           </aside>
@@ -330,7 +290,7 @@ export function ProductCatalogApp() {
       <OfferWizard
         open={wizardOpen}
         product={selectedProduct}
-        attributes={data.attributes}
+        attributes={productAttributes}
         values={configuration}
         onOpenChange={setWizardOpen}
       />

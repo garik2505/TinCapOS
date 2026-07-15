@@ -2,11 +2,11 @@ import type { ProductCatalogData } from "@/lib/product-types";
 
 export const productCatalogData: ProductCatalogData = {
   categories: [
-    { id: "tin-cans", name: "Жестяные банки", icon: "▣" },
-    { id: "tin-canisters", name: "Жестяные канистры", icon: "▥" },
-    { id: "aerosol-cans", name: "Аэрозольные баллоны", icon: "▯" },
-    { id: "metal-buckets", name: "Металлические ведра", icon: "▤" },
-    { id: "chemical-cans", name: "Банки для химии", icon: "▧" }
+    { id: "tin-cans", name: "Жестяные банки", icon: "▣", order: 1, active: true },
+    { id: "tin-canisters", name: "Жестяные канистры", icon: "▥", order: 2, active: true },
+    { id: "aerosol-cans", name: "Аэрозольные баллоны", icon: "▯", order: 3, active: true },
+    { id: "metal-buckets", name: "Металлические ведра", icon: "▤", order: 4, active: true },
+    { id: "chemical-cans", name: "Банки для химии", icon: "▧", order: 5, active: true }
   ],
   products: [
     {
@@ -16,6 +16,7 @@ export const productCatalogData: ProductCatalogData = {
       categoryId: "tin-cans",
       status: "active",
       imageTone: "silver",
+      attributeIds: ["volume", "shape", "bodyMaterial", "innerCoating", "outerCoating", "lidType", "seamType", "tinThickness", "printing"],
       defaultConfiguration: {
         volume: "250",
         shape: "cylindrical",
@@ -29,50 +30,13 @@ export const productCatalogData: ProductCatalogData = {
       }
     },
     {
-      id: "tin-can-500",
-      name: "Банка жестяная 500 мл",
-      article: "TC-CAN-500",
-      categoryId: "tin-cans",
-      status: "active",
-      imageTone: "silver",
-      defaultConfiguration: {
-        volume: "500",
-        shape: "cylindrical",
-        bodyMaterial: "tinplate",
-        innerCoating: "gold-lacquer",
-        outerCoating: "gloss-lacquer",
-        lidType: "press-cap",
-        seamType: "welded",
-        tinThickness: "0.20",
-        printing: "offset"
-      }
-    },
-    {
-      id: "tin-can-1000",
-      name: "Банка жестяная 1 л",
-      article: "TC-CAN-1000",
-      categoryId: "tin-cans",
-      status: "active",
-      imageTone: "silver",
-      defaultConfiguration: {
-        volume: "1000",
-        shape: "cylindrical",
-        bodyMaterial: "tinplate",
-        innerCoating: "white-lacquer",
-        outerCoating: "matte-lacquer",
-        lidType: "press-cap",
-        seamType: "welded",
-        tinThickness: "0.22",
-        printing: "offset"
-      }
-    },
-    {
       id: "tin-can-4000",
       name: "Банка жестяная 4 л",
       article: "TC-CAN-4000",
       categoryId: "tin-cans",
       status: "active",
       imageTone: "steel",
+      attributeIds: ["volume", "shape", "bodyMaterial", "innerCoating", "outerCoating", "lidType", "seamType", "tinThickness", "printing"],
       defaultConfiguration: {
         volume: "4000",
         shape: "cylindrical",
@@ -86,22 +50,61 @@ export const productCatalogData: ProductCatalogData = {
       }
     },
     {
-      id: "metal-canister-10000",
-      name: "Канистра металлическая 10 л",
-      article: "TC-CAN-10000",
+      id: "metal-canister-2000",
+      name: "Канистра металлическая 2 л",
+      article: "TC-KAN-2000",
       categoryId: "tin-canisters",
       status: "active",
       imageTone: "gray",
+      attributeIds: ["volume", "shape", "bodyMaterial", "innerCoating", "outerCoating", "handleType", "lidType", "seamType", "tinThickness", "printing"],
       defaultConfiguration: {
-        volume: "10000",
+        volume: "2000",
         shape: "rectangular",
         bodyMaterial: "tinplate",
-        innerCoating: "epoxy-phenolic",
+        innerCoating: "gold-lacquer",
         outerCoating: "gloss-lacquer",
+        handleType: "no-handle",
         lidType: "screw-cap",
         seamType: "welded",
-        tinThickness: "0.28",
+        tinThickness: "0.22",
+        printing: "none"
+      }
+    },
+    {
+      id: "metal-canister-5000",
+      name: "Канистра металлическая 5 л",
+      article: "TC-KAN-5000",
+      categoryId: "tin-canisters",
+      status: "active",
+      imageTone: "gray",
+      attributeIds: ["volume", "shape", "bodyMaterial", "innerCoating", "outerCoating", "handleType", "lidType", "seamType", "tinThickness", "printing"],
+      defaultConfiguration: {
+        volume: "5000",
+        shape: "rectangular",
+        bodyMaterial: "tinplate",
+        innerCoating: "white-lacquer",
+        outerCoating: "painted",
+        handleType: "plastic-handle",
+        lidType: "screw-cap",
+        seamType: "welded",
+        tinThickness: "0.25",
         printing: "label"
+      }
+    },
+    {
+      id: "aerosol-520",
+      name: "Аэрозольный баллон 520 мл",
+      article: "TC-AER-520",
+      categoryId: "aerosol-cans",
+      status: "draft",
+      imageTone: "silver",
+      attributeIds: ["volume", "shape", "bodyMaterial", "outerCoating", "printing"],
+      defaultConfiguration: {
+        volume: "520",
+        shape: "cylindrical",
+        bodyMaterial: "tinplate",
+        outerCoating: "gloss-lacquer",
+        printing: "offset"
       }
     }
   ],
@@ -109,20 +112,22 @@ export const productCatalogData: ProductCatalogData = {
     {
       id: "volume",
       label: "Объем",
+      type: "Dropdown",
       unit: "мл",
-      display: "select",
+      active: true,
       options: [
         { id: "250", label: "250 мл" },
-        { id: "500", label: "500 мл" },
-        { id: "1000", label: "1 л" },
+        { id: "520", label: "520 мл" },
+        { id: "2000", label: "2 л" },
         { id: "4000", label: "4 л" },
-        { id: "10000", label: "10 л" }
+        { id: "5000", label: "5 л" }
       ]
     },
     {
       id: "shape",
       label: "Форма",
-      display: "select",
+      type: "Buttons",
+      active: true,
       options: [
         { id: "cylindrical", label: "Цилиндрическая" },
         { id: "rectangular", label: "Прямоугольная" }
@@ -131,7 +136,8 @@ export const productCatalogData: ProductCatalogData = {
     {
       id: "bodyMaterial",
       label: "Материал корпуса",
-      display: "select",
+      type: "Buttons",
+      active: true,
       options: [
         { id: "tinplate", label: "Жесть" },
         { id: "galvanized-steel", label: "Оцинкованная сталь" }
@@ -140,18 +146,20 @@ export const productCatalogData: ProductCatalogData = {
     {
       id: "innerCoating",
       label: "Внутреннее покрытие",
-      display: "chips",
+      type: "Buttons",
+      active: true,
       options: [
         { id: "gold-lacquer", label: "Золотой лак" },
         { id: "white-lacquer", label: "Белый лак" },
-        { id: "epoxy-phenolic", label: "Эпоксифенольное покрытие" },
+        { id: "epoxy-phenolic", label: "Эпокси" },
         { id: "bpa-ni", label: "BPA-NI" }
       ]
     },
     {
       id: "outerCoating",
       label: "Внешнее покрытие",
-      display: "select",
+      type: "Dropdown",
+      active: true,
       options: [
         { id: "gloss-lacquer", label: "Лак (глянцевый)" },
         { id: "matte-lacquer", label: "Лак (матовый)" },
@@ -159,12 +167,23 @@ export const productCatalogData: ProductCatalogData = {
       ]
     },
     {
+      id: "handleType",
+      label: "Ручка",
+      type: "Buttons",
+      active: true,
+      options: [
+        { id: "no-handle", label: "Без ручки" },
+        { id: "plastic-handle", label: "Пластиковая" },
+        { id: "metal-handle", label: "Металлическая" }
+      ]
+    },
+    {
       id: "lidType",
       label: "Тип крышки",
-      display: "select",
+      type: "Dropdown",
+      active: true,
       options: [
         { id: "pull-cap", label: "Крышка с натягом" },
-        { id: "press-cap", label: "Прижимная крышка" },
         { id: "lever-lid", label: "Крышка с замком" },
         { id: "screw-cap", label: "Винтовая крышка" }
       ]
@@ -172,7 +191,8 @@ export const productCatalogData: ProductCatalogData = {
     {
       id: "seamType",
       label: "Тип шва",
-      display: "select",
+      type: "Buttons",
+      active: true,
       options: [
         { id: "welded", label: "Сварной шов" },
         { id: "lock-seam", label: "Замковый шов" }
@@ -181,11 +201,11 @@ export const productCatalogData: ProductCatalogData = {
     {
       id: "tinThickness",
       label: "Толщина жести",
+      type: "Dropdown",
       unit: "мм",
-      display: "select",
+      active: true,
       options: [
         { id: "0.18", label: "0.18 мм" },
-        { id: "0.20", label: "0.20 мм" },
         { id: "0.22", label: "0.22 мм" },
         { id: "0.25", label: "0.25 мм" },
         { id: "0.28", label: "0.28 мм" }
@@ -194,7 +214,8 @@ export const productCatalogData: ProductCatalogData = {
     {
       id: "printing",
       label: "Печать",
-      display: "select",
+      type: "Dropdown",
+      active: true,
       options: [
         { id: "none", label: "Без печати" },
         { id: "offset", label: "Офсетная печать" },
@@ -202,24 +223,22 @@ export const productCatalogData: ProductCatalogData = {
       ]
     }
   ],
-  restrictions: [
+  rules: [
     {
-      attributeId: "innerCoating",
-      optionId: "white-lacquer",
-      when: { volume: "250" },
-      reason: "Для объема 250 мл доступен только золотой лак"
+      id: "rule-can-250-inner-coating",
+      name: "250 мл только золотой лак",
+      active: true,
+      if: { attributeId: "volume", operator: "=", optionId: "250" },
+      then: { attributeId: "innerCoating", action: "allowOnly", optionIds: ["gold-lacquer"] },
+      reason: "Для объема 250 мл доступен только золотой лак."
     },
     {
-      attributeId: "innerCoating",
-      optionId: "epoxy-phenolic",
-      when: { volume: "250" },
-      reason: "Для объема 250 мл доступен только золотой лак"
-    },
-    {
-      attributeId: "innerCoating",
-      optionId: "bpa-ni",
-      when: { volume: "250" },
-      reason: "Для объема 250 мл доступен только золотой лак"
+      id: "rule-canister-2l-handle",
+      name: "2 л без ручки",
+      active: true,
+      if: { attributeId: "volume", operator: "=", optionId: "2000" },
+      then: { attributeId: "handleType", action: "allowOnly", optionIds: ["no-handle"] },
+      reason: "Для канистры 2 л ручка недоступна."
     }
   ],
   savedConfigurations: [
@@ -239,24 +258,6 @@ export const productCatalogData: ProductCatalogData = {
         seamType: "welded",
         tinThickness: "0.18",
         printing: "none"
-      }
-    },
-    {
-      id: "saved-250-alt",
-      productId: "tin-can-250",
-      title: "250 мл · Альтернативный вариант",
-      createdAt: "14.07.2026",
-      updatedAt: "14.07.2026",
-      values: {
-        volume: "250",
-        shape: "cylindrical",
-        bodyMaterial: "tinplate",
-        innerCoating: "gold-lacquer",
-        outerCoating: "matte-lacquer",
-        lidType: "press-cap",
-        seamType: "welded",
-        tinThickness: "0.20",
-        printing: "offset"
       }
     }
   ],

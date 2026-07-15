@@ -1,8 +1,14 @@
+export type UserRole = "Manager" | "Administrator";
+
 export type ProductCategory = {
   id: string;
   name: string;
   icon: string;
+  order: number;
+  active: boolean;
 };
+
+export type ProductAttributeType = "Dropdown" | "Buttons" | "Number" | "Text";
 
 export type ProductOption = {
   id: string;
@@ -12,8 +18,9 @@ export type ProductOption = {
 export type ProductAttribute = {
   id: string;
   label: string;
+  type: ProductAttributeType;
   unit?: string;
-  display: "select" | "chips";
+  active: boolean;
   options: ProductOption[];
 };
 
@@ -24,13 +31,27 @@ export type ProductBase = {
   categoryId: string;
   status: "active" | "draft";
   imageTone: "silver" | "steel" | "gray";
+  attributeIds: string[];
   defaultConfiguration: Record<string, string>;
 };
 
-export type ProductRestriction = {
-  attributeId: string;
-  optionId: string;
-  when: Record<string, string>;
+export type ProductRuleOperator = "=";
+export type ProductRuleAction = "allowOnly" | "disallow";
+
+export type ProductRule = {
+  id: string;
+  name: string;
+  active: boolean;
+  if: {
+    attributeId: string;
+    operator: ProductRuleOperator;
+    optionId: string;
+  };
+  then: {
+    attributeId: string;
+    action: ProductRuleAction;
+    optionIds: string[];
+  };
   reason: string;
 };
 
@@ -53,7 +74,7 @@ export type ProductCatalogData = {
   categories: ProductCategory[];
   products: ProductBase[];
   attributes: ProductAttribute[];
-  restrictions: ProductRestriction[];
+  rules: ProductRule[];
   savedConfigurations: SavedProductConfiguration[];
   documents: ProductDocument[];
 };
