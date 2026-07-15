@@ -5,6 +5,9 @@ build/
 coverage/
 .pytest_cache/
 __pycache__/
+.streamlit/
+.pnpm-store/
+*.tsbuildinfo
 *.log
 *.sqlite3
 *.db
@@ -20,9 +23,3 @@ storage/*
 !storage/.gitkeep
 database/*
 !database/.gitkeep
-docs/*
-!docs/.gitkeep
-tests/*
-!tests/.gitkeep
-scripts/*
-!scripts/.gitkeep

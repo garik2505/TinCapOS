@@ -1,0 +1,322 @@
+{
+  "stages": [
+    { "id": "new", "title": "1. Новые", "tone": "blue" },
+    { "id": "request-china", "title": "2. Запрос в Китай", "tone": "amber" },
+    { "id": "calculation", "title": "3. Расчёт", "tone": "violet" },
+    { "id": "quote-sent", "title": "4. КП отправлено", "tone": "emerald" },
+    { "id": "negotiation", "title": "5. Переговоры", "tone": "orange" },
+    { "id": "order", "title": "6. Заказ", "tone": "green" }
+  ],
+  "clients": [
+    {
+      "id": "ecoaero",
+      "name": "ЭкоАэро",
+      "company": "ООО ЭкоАэро",
+      "manager": "Гарик",
+      "date": "19.05.2024",
+      "amount": "75 000 ₽",
+      "product": "Канистра металлическая 5 л",
+      "stageId": "request-china",
+      "summary": "Производство аэрозольных красок и бытовой химии.",
+      "initials": "EA"
+    },
+    {
+      "id": "himprom",
+      "name": "ХимПром",
+      "company": "ООО ХимПром",
+      "manager": "Гарик",
+      "date": "21.05.2024",
+      "amount": "36 500 ₽",
+      "product": "Жестяная банка 1 л",
+      "stageId": "new",
+      "summary": "Запрос на тару для лакокрасочной продукции.",
+      "initials": "ХП"
+    },
+    {
+      "id": "lakmir",
+      "name": "ЛакМир",
+      "company": "ООО ЛакМир",
+      "manager": "Анна",
+      "date": "20.05.2024",
+      "amount": "48 000 ₽",
+      "product": "Металлический лист",
+      "stageId": "new",
+      "summary": "Ищут листы под крышки и корпусную штамповку.",
+      "initials": "ЛМ"
+    },
+    {
+      "id": "autohim",
+      "name": "АвтоХим",
+      "company": "АвтоХим",
+      "manager": "Анна",
+      "date": "18.05.2024",
+      "amount": "68 300 ₽",
+      "product": "Канистра металлическая 20 л",
+      "stageId": "request-china",
+      "summary": "Требуется тара для автокосметики и масел.",
+      "initials": "АХ"
+    },
+    {
+      "id": "promtech",
+      "name": "ПромТех",
+      "company": "ПромТех",
+      "manager": "Гарик",
+      "date": "17.05.2024",
+      "amount": "67 000 ₽",
+      "product": "Металлический лист 0.35",
+      "stageId": "request-china",
+      "summary": "Лист под промышленную упаковку.",
+      "initials": "ПТ"
+    },
+    {
+      "id": "kraska",
+      "name": "Краска",
+      "company": "ООО Краска",
+      "manager": "Гарик",
+      "date": "18.05.2024",
+      "amount": "56 400 ₽",
+      "product": "Жестяная банка 1 л",
+      "stageId": "calculation",
+      "summary": "Ожидают финализацию калькуляции по партии.",
+      "initials": "КР"
+    },
+    {
+      "id": "tehnolak",
+      "name": "ТехноЛак",
+      "company": "ТехноЛак",
+      "manager": "Анна",
+      "date": "17.05.2024",
+      "amount": "51 000 ₽",
+      "product": "Крышка укупорка",
+      "stageId": "calculation",
+      "summary": "Подбираем крышку и просчитываем логистику.",
+      "initials": "ТЛ"
+    },
+    {
+      "id": "color",
+      "name": "Колор",
+      "company": "ООО Колор",
+      "manager": "Гарик",
+      "date": "16.05.2024",
+      "amount": "118 700 ₽",
+      "product": "Канистра металлическая 10 л",
+      "stageId": "quote-sent",
+      "summary": "КП отправлено, ждём обратную связь.",
+      "initials": "КЛ"
+    },
+    {
+      "id": "himtrade",
+      "name": "ХимТрейд",
+      "company": "ХимТрейд",
+      "manager": "Анна",
+      "date": "15.05.2024",
+      "amount": "105 000 ₽",
+      "product": "Жестяная банка 2 л",
+      "stageId": "quote-sent",
+      "summary": "КП отправлено на согласование закупки.",
+      "initials": "ХТ"
+    },
+    {
+      "id": "stroihim",
+      "name": "СтройХим",
+      "company": "СтройХим",
+      "manager": "Гарик",
+      "date": "14.05.2024",
+      "amount": "95 000 ₽",
+      "product": "Лист для штамповки",
+      "stageId": "quote-sent",
+      "summary": "Переходим к обсуждению сроков.",
+      "initials": "СХ"
+    },
+    {
+      "id": "betakhim",
+      "name": "БетаХим",
+      "company": "БетаХим",
+      "manager": "Гарик",
+      "date": "14.05.2024",
+      "amount": "95 000 ₽",
+      "product": "Жестяная банка 3 л",
+      "stageId": "negotiation",
+      "summary": "Сверяем условия по доставке и оплате.",
+      "initials": "БХ"
+    },
+    {
+      "id": "lakokras",
+      "name": "Лакокрас",
+      "company": "Лакокрас",
+      "manager": "Анна",
+      "date": "13.05.2024",
+      "amount": "75 000 ₽",
+      "product": "Металлический лист",
+      "stageId": "negotiation",
+      "summary": "Согласовываем условия на следующую партию.",
+      "initials": "ЛК"
+    },
+    {
+      "id": "tehnoprom",
+      "name": "ТехноПром",
+      "company": "ТехноПром",
+      "manager": "Гарик",
+      "date": "12.05.2024",
+      "amount": "45 000 ₽",
+      "product": "Крышка укупорка",
+      "stageId": "negotiation",
+      "summary": "Ждём решение по объёму заказа.",
+      "initials": "ТП"
+    },
+    {
+      "id": "megapak",
+      "name": "МегаПак",
+      "company": "МегаПак",
+      "manager": "Гарик",
+      "date": "11.05.2024",
+      "amount": "250 000 ₽",
+      "product": "Пластиковая тара",
+      "stageId": "order",
+      "summary": "Заказ подтверждён и передан в производство.",
+      "initials": "МП"
+    },
+    {
+      "id": "promvest",
+      "name": "ПромВест",
+      "company": "ПромВест",
+      "manager": "Гарик",
+      "date": "10.05.2024",
+      "amount": "200 000 ₽",
+      "product": "Жестяная банка",
+      "stageId": "order",
+      "summary": "Готовим отгрузку и закрывающие документы.",
+      "initials": "ПВ"
+    }
+  ],
+  "workspaces": {
+    "ecoaero": {
+      "id": "ecoaero",
+      "name": "ЭкоАэро",
+      "company": "ООО ЭкоАэро",
+      "avatar": "EA",
+      "stageId": "request-china",
+      "stageLabel": "Запрос в Китай",
+      "status": "В работе",
+      "proposalsCount": 2,
+      "totalAmount": "75 000 ₽",
+      "overview": {
+        "details": [
+          { "label": "Компания", "value": "ООО ЭкоАэро" },
+          { "label": "ИНН", "value": "7701234567" },
+          { "label": "Телефон", "value": "+7 (495) 123-45-67" },
+          { "label": "Email", "value": "info@ecoaero.ru" },
+          { "label": "Ответственный", "value": "Гарик" },
+          { "label": "Источник", "value": "Сайт" },
+          { "label": "Регион", "value": "Москва" },
+          { "label": "Комментарий", "value": "Производство аэрозольных красок и химии." }
+        ],
+        "metrics": [
+          { "label": "Активные предложения", "value": "2", "tone": "blue" },
+          { "label": "Сумма в работе", "value": "75 000 ₽", "tone": "emerald" },
+          { "label": "Просрочено задач", "value": "3", "tone": "amber" }
+        ]
+      },
+      "proposals": [
+        { "id": "ПР-00021", "title": "Канистра 5 л", "status": "КП отправлено", "date": "20.05.2024", "amount": "45 600 ₽" },
+        { "id": "ПР-00020", "title": "Банка 1 л", "status": "Расчёт", "date": "19.05.2024", "amount": "29 400 ₽" }
+      ],
+      "documents": [
+        { "title": "Запрос_ЭкоАэро.xlsx", "type": "Запрос", "status": "Готово", "updatedAt": "20.05.2024" },
+        { "title": "КП_ПР-00021.pdf", "type": "КП", "status": "Отправлено", "updatedAt": "20.05.2024" },
+        { "title": "Счёт_на_оплату.pdf", "type": "Документ", "status": "Черновик", "updatedAt": "21.05.2024" }
+      ],
+      "contacts": [
+        { "name": "Иван Петров", "role": "Директор", "phone": "+7 (495) 123-45-67", "email": "iv.petrov@ecoaero.ru" },
+        { "name": "Мария Смирнова", "role": "Закупки", "phone": "+7 (495) 111-22-33", "email": "m.smirnova@ecoaero.ru" }
+      ],
+      "history": [
+        { "date": "19.05.2024", "time": "13:30", "title": "Создана карточка клиента", "description": "Клиент добавлен в воронку продаж." },
+        { "date": "20.05.2024", "time": "10:15", "title": "Добавлен контакт", "description": "Иван Петров добавлен как основной контакт." },
+        { "date": "20.05.2024", "time": "14:40", "title": "Отправлено КП", "description": "КП №ПР-00021 отправлено на согласование." }
+      ],
+      "tasks": [
+        { "title": "Перезвонить клиенту", "due": "22.05.2024", "status": "В работе" },
+        { "title": "Запросить размеры крышки", "due": "22.05.2024", "status": "Нужно выполнить" }
+      ],
+      "comments": [
+        { "author": "Гарик", "time": "21.05.2024 09:10", "text": "Ждём подтверждение размеров и сроков." },
+        { "author": "Анна", "time": "21.05.2024 10:25", "text": "Подготовить резервный вариант упаковки." }
+      ]
+    }
+  },
+  "wizard": {
+    "steps": [
+      {
+        "id": 1,
+        "label": "Выбор товара",
+        "description": "Подберите категорию и изделие для будущего КП."
+      },
+      {
+        "id": 2,
+        "label": "Калькулятор",
+        "description": "Пока только интерфейс будущего расчёта."
+      },
+      {
+        "id": 3,
+        "label": "Реквизиты",
+        "description": "Подготовьте данные клиента и поставщика."
+      },
+      {
+        "id": 4,
+        "label": "Коммерческое предложение",
+        "description": "Соберите структуру КП без отправки."
+      },
+      {
+        "id": 5,
+        "label": "Отправка",
+        "description": "Каналы отправки и статусы направления."
+      }
+    ],
+    "products": [
+      {
+        "id": "canister-5l",
+        "title": "Канистра металлическая 5 л",
+        "category": "Металлическая тара",
+        "tag": "Популярный",
+        "note": "Подходит для химии и автотоваров."
+      },
+      {
+        "id": "tin-can-1l",
+        "title": "Жестяная банка 1 л",
+        "category": "Жестяная тара",
+        "tag": "Тестовый",
+        "note": "Удобна для лакокрасочной продукции."
+      },
+      {
+        "id": "sheet-035",
+        "title": "Металлический лист 0.35",
+        "category": "Сырьё",
+        "tag": "Стандарт",
+        "note": "Основа для штамповки и производства корпусов."
+      }
+    ],
+    "calculatorRows": [
+      { "label": "Себестоимость 1 шт.", "value": "—", "helper": "Появится после подключения формулы" },
+      { "label": "Общий объём партии", "value": "—", "helper": "Mock-данные до интеграции FastAPI" },
+      { "label": "Маржа", "value": "—", "helper": "Пока только интерфейс" }
+    ],
+    "requisites": [
+      { "label": "Плательщик", "value": "ООО ЭкоАэро" },
+      { "label": "Получатель", "value": "TinCap OS Trading" },
+      { "label": "ИНН", "value": "7701234567" },
+      { "label": "Валюта", "value": "RUB / CNY / USD" }
+    ],
+    "cpRows": [
+      { "label": "Название предложения", "value": "КП на канистры 5 л" },
+      { "label": "Срок действия", "value": "14 дней" },
+      { "label": "Условия", "value": "EXW / FOB / CIF" },
+      { "label": "Комментарий", "value": "Шаблон готовится по выбранной конфигурации" }
+    ],
+    "channels": [
+      { "label": "Email", "value": "info@ecoaero.ru" },
+      { "label": "WhatsApp", "value": "+7 (495) 123-45-67" },
+      { "label": "CRM", "value": "Статус отправки внутри системы" }
+    ]
+  }
+}
