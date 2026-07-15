@@ -2,10 +2,10 @@
 
 import * as React from "react";
 
-import { Bell, Bookmark, ChevronDown, Info, Lock, Plus, Search, SlidersHorizontal } from "@/components/icons";
+import { Bookmark, ChevronDown, FileText, Info, Lock, MoreVertical, Plus, SlidersHorizontal } from "@/components/icons";
 import { OfferWizard } from "@/components/products/offer-wizard";
 import { ProductImage } from "@/components/products/product-image";
-import { SalesSidebar } from "@/components/sales/sidebar";
+import { AppShell } from "@/components/layout/app-shell";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -74,46 +74,26 @@ export function ProductCatalogApp() {
   }
 
   return (
-    <div className="flex min-h-screen bg-slate-50 text-slate-950">
-      <SalesSidebar activeSection="productsCatalog" role="Administrator" />
-
-      <main className="flex min-h-screen flex-1 flex-col">
-        <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur">
-          <div className="flex items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
-            <div>
-              <h1 className="text-2xl font-semibold tracking-normal text-slate-950">Каталог продукции</h1>
-              <p className="mt-1 text-sm text-slate-500">Режим менеджера · конфигуратор продукции</p>
-            </div>
-
-            <div className="hidden flex-1 justify-center px-6 xl:flex">
-              <div className="flex w-full max-w-2xl items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2.5 shadow-sm">
-                <Search className="h-4 w-4 text-slate-400" />
-                <input
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Поиск по товарам и характеристикам..."
-                  className="w-full bg-transparent text-sm outline-none placeholder:text-slate-400"
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="icon" className="relative hidden rounded-xl lg:inline-flex">
-                <Bell className="h-4 w-4" />
-                <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white">12</span>
-              </Button>
-              <Button variant="outline" size="icon" className="hidden rounded-xl lg:inline-flex">
-                <SlidersHorizontal className="h-4 w-4" />
-              </Button>
-              <Button className="gap-2 rounded-xl px-5" onClick={() => setWizardOpen(true)}>
-                <Plus className="h-4 w-4" />
-                Создать предложение
-              </Button>
-            </div>
-          </div>
-        </header>
-
-        <div className="grid flex-1 gap-4 p-4 sm:p-6 lg:grid-cols-[310px_minmax(0,1fr)_340px]">
+    <AppShell
+      activeSection="productsCatalog"
+      title="Каталог продукции"
+      subtitle="Режим менеджера · конфигуратор продукции"
+      searchValue={query}
+      onSearchChange={setQuery}
+      searchPlaceholder="Поиск по товарам и характеристикам..."
+      actions={
+        <>
+          <Button variant="outline" size="icon" className="hidden rounded-xl lg:inline-flex" aria-label="Фильтры">
+            <SlidersHorizontal className="h-4 w-4" />
+          </Button>
+          <Button className="gap-2 rounded-xl px-5" onClick={() => setWizardOpen(true)}>
+            <Plus className="h-4 w-4" />
+            Создать предложение
+          </Button>
+        </>
+      }
+    >
+      <div className="grid gap-4 p-4 sm:p-6 lg:grid-cols-[310px_minmax(0,1fr)_340px]">
           <aside className="space-y-4">
             <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
               <h2 className="text-sm font-semibold text-slate-950">Категории</h2>
@@ -126,7 +106,7 @@ export function ProductCatalogApp() {
                       type="button"
                       className={cn(
                         "flex w-full items-center justify-between rounded-lg px-3 py-3 text-left text-sm transition",
-                        active ? "bg-violet-50 text-violet-700 ring-1 ring-violet-100" : "text-slate-700 hover:bg-slate-50"
+                        active ? "bg-blue-50 text-blue-700 ring-1 ring-blue-100" : "text-slate-700 hover:bg-slate-50"
                       )}
                     >
                       <span className="flex min-w-0 items-center gap-3">
@@ -153,7 +133,7 @@ export function ProductCatalogApp() {
                       onClick={() => selectProduct(product)}
                       className={cn(
                         "flex w-full items-center gap-3 rounded-lg border p-3 text-left transition",
-                        active ? "border-violet-300 bg-violet-50" : "border-slate-200 bg-white hover:bg-slate-50"
+                        active ? "border-blue-300 bg-blue-50" : "border-slate-200 bg-white hover:bg-slate-50"
                       )}
                     >
                       <ProductImage product={product} size="sm" />
@@ -224,7 +204,7 @@ export function ProductCatalogApp() {
                               onClick={() => updateConfiguration(attribute.id, option.id)}
                               className={cn(
                                 "inline-flex h-10 items-center gap-2 rounded-lg border px-4 text-sm font-medium transition",
-                                selected ? "border-violet-400 bg-violet-50 text-violet-700" : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50",
+                                selected ? "border-blue-400 bg-blue-50 text-blue-700" : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50",
                                 !compatibility.available ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400 opacity-70 hover:bg-slate-100" : ""
                               )}
                             >
@@ -239,7 +219,7 @@ export function ProductCatalogApp() {
                         <select
                           value={configuration[attribute.id]}
                           onChange={(event) => updateConfiguration(attribute.id, event.target.value)}
-                          className="h-11 w-full appearance-none rounded-lg border border-slate-200 bg-white px-4 pr-10 text-sm font-medium text-slate-900 outline-none transition focus:border-violet-300 focus:ring-4 focus:ring-violet-50"
+                          className="h-11 w-full appearance-none rounded-lg border border-slate-200 bg-white px-4 pr-10 text-sm font-medium text-slate-900 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-50"
                         >
                           {attribute.options.map((option) => (
                             <option key={option.id} value={option.id}>
@@ -283,9 +263,42 @@ export function ProductCatalogApp() {
                 </Button>
               </div>
             </section>
+
+            <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+              <div className="flex items-center justify-between gap-3">
+                <h2 className="text-sm font-semibold text-slate-950">Сохраненные конфигурации</h2>
+                <Badge variant="blue">{data.savedConfigurations.length}</Badge>
+              </div>
+              <div className="mt-3 space-y-2">
+                {data.savedConfigurations.map((savedConfiguration) => (
+                  <div key={savedConfiguration.id} className="flex items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white px-3 py-2.5">
+                    <div className="min-w-0">
+                      <div className="truncate text-sm font-semibold text-slate-950">{savedConfiguration.title}</div>
+                      <div className="mt-1 text-xs text-slate-500">Обновлено {savedConfiguration.updatedAt}</div>
+                    </div>
+                    <button type="button" className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-slate-400 hover:bg-slate-50 hover:text-slate-700" aria-label="Действия">
+                      <MoreVertical className="h-4 w-4" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+              <h2 className="text-sm font-semibold text-slate-950">Документация</h2>
+              <div className="mt-3 space-y-2">
+                {data.documents.map((document) => (
+                  <button key={document.id} type="button" className="flex w-full items-center gap-3 rounded-lg border border-slate-200 bg-white px-3 py-3 text-left text-sm font-medium text-slate-700 transition hover:bg-slate-50">
+                    <span className="grid h-8 w-8 place-items-center rounded-lg bg-blue-50 text-blue-700">
+                      <FileText className="h-4 w-4" />
+                    </span>
+                    {document.label}
+                  </button>
+                ))}
+              </div>
+            </section>
           </aside>
-        </div>
-      </main>
+      </div>
 
       <OfferWizard
         open={wizardOpen}
@@ -294,6 +307,6 @@ export function ProductCatalogApp() {
         values={configuration}
         onOpenChange={setWizardOpen}
       />
-    </div>
+    </AppShell>
   );
 }

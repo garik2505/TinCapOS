@@ -2,8 +2,8 @@
 
 import * as React from "react";
 
-import { Plus, Search, SlidersHorizontal } from "@/components/icons";
-import { SalesSidebar } from "@/components/sales/sidebar";
+import { Plus, SlidersHorizontal } from "@/components/icons";
+import { AppShell } from "@/components/layout/app-shell";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -171,24 +171,13 @@ export function ProductSettingsApp() {
   }
 
   return (
-    <div className="flex min-h-screen bg-slate-50 text-slate-950">
-      <SalesSidebar activeSection="productsSettings" role="Administrator" />
-
-      <main className="flex min-h-screen flex-1 flex-col overflow-hidden">
-        <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur">
-          <div className="flex flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-            <div>
-              <h1 className="text-2xl font-semibold tracking-tight text-slate-950">Настройки каталога</h1>
-              <p className="mt-1 text-sm text-slate-500">Режим администратора · товары, характеристики и зависимости</p>
-            </div>
-            <div className="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2.5 shadow-sm lg:max-w-md">
-              <Search className="h-4 w-4 text-slate-400" />
-              <input placeholder="Поиск настроек..." className="w-full bg-transparent text-sm outline-none placeholder:text-slate-400" />
-            </div>
-          </div>
-        </header>
-
-        <div className="space-y-5 overflow-auto p-4 sm:p-6">
+    <AppShell
+      activeSection="productsSettings"
+      title="Настройки каталога"
+      subtitle="Режим администратора · товары, характеристики и зависимости"
+      searchPlaceholder="Поиск настроек..."
+    >
+      <div className="space-y-5 p-4 sm:p-6">
           <div className="grid gap-3 rounded-2xl border border-slate-200 bg-white p-2 shadow-sm md:grid-cols-4">
             {settingsTabs.map((tab) => (
               <button
@@ -197,11 +186,11 @@ export function ProductSettingsApp() {
                 onClick={() => setActiveTab(tab.id)}
                 className={cn(
                   "rounded-xl p-4 text-left transition",
-                  activeTab === tab.id ? "bg-violet-600 text-white shadow-lg shadow-violet-100" : "text-slate-600 hover:bg-slate-50"
+                  activeTab === tab.id ? "bg-blue-600 text-white shadow-lg shadow-blue-100" : "text-slate-600 hover:bg-slate-50"
                 )}
               >
                 <div className="font-semibold">{tab.label}</div>
-                <div className={cn("mt-1 text-xs", activeTab === tab.id ? "text-violet-100" : "text-slate-400")}>{tab.description}</div>
+                <div className={cn("mt-1 text-xs", activeTab === tab.id ? "text-blue-100" : "text-slate-400")}>{tab.description}</div>
               </button>
             ))}
           </div>
@@ -293,7 +282,7 @@ export function ProductSettingsApp() {
                             const exists = item.attributeIds.includes(attribute.id);
                             return { ...item, attributeIds: exists ? item.attributeIds.filter((id) => id !== attribute.id) : [...item.attributeIds, attribute.id] };
                           }))}
-                          className={cn("rounded-lg border px-2.5 py-1.5 text-xs", product.attributeIds.includes(attribute.id) ? "border-violet-300 bg-violet-50 text-violet-700" : "border-slate-200 text-slate-500")}
+                          className={cn("rounded-lg border px-2.5 py-1.5 text-xs", product.attributeIds.includes(attribute.id) ? "border-blue-300 bg-blue-50 text-blue-700" : "border-slate-200 text-slate-500")}
                         >
                           {attribute.label}
                         </button>
@@ -357,7 +346,7 @@ export function ProductSettingsApp() {
             <section className="grid gap-4 xl:grid-cols-[460px_minmax(0,1fr)]">
               <SectionCard title="Визуальный редактор правил">
                 <div className="flex items-center gap-2 text-sm font-medium text-slate-600">
-                  <SlidersHorizontal className="h-5 w-5 text-violet-600" />
+                  <SlidersHorizontal className="h-5 w-5 text-blue-600" />
                   Без JSON — только понятная логика для администратора
                 </div>
                 <div className="mt-5 space-y-4">
@@ -418,8 +407,7 @@ export function ProductSettingsApp() {
               </div>
             </section>
           ) : null}
-        </div>
-      </main>
-    </div>
+      </div>
+    </AppShell>
   );
 }

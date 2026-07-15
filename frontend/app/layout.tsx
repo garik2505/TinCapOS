@@ -3,7 +3,10 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "TinCap OS",
-  description: "Sales workspace prototype for TinCap OS"
+  description: "Sales workspace prototype for TinCap OS",
+  icons: {
+    icon: "/icon.svg"
+  }
 };
 
 export default function RootLayout({

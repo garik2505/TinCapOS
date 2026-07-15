@@ -259,6 +259,24 @@ export const productCatalogData: ProductCatalogData = {
         tinThickness: "0.18",
         printing: "none"
       }
+    },
+    {
+      id: "saved-250-alt",
+      productId: "tin-can-250",
+      title: "250 мл · Альтернативный вариант",
+      createdAt: "14.07.2026",
+      updatedAt: "14.07.2026",
+      values: {
+        volume: "250",
+        shape: "cylindrical",
+        bodyMaterial: "tinplate",
+        innerCoating: "gold-lacquer",
+        outerCoating: "matte-lacquer",
+        lidType: "lock-cap",
+        seamType: "welded",
+        tinThickness: "0.22",
+        printing: "offset"
+      }
     }
   ],
   documents: [
